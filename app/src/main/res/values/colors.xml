@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="icon_ActiveFragment">#7765E3</color>
     <color name="appBackground">#181A20</color>
+    <color name="searchBar" >#207C8EBB</color>
+
 </resources>
