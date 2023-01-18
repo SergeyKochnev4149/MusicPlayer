@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/appBackground">
+    android:background="@color/appBackground"
+    tools:context=".MainActivity">
 
+    <!--search bar-->
     <RelativeLayout
+        android:id="@+id/rlSearchBar"
         android:layout_width="match_parent"
         android:layout_height="83dp"
         android:background="@color/searchBar"
@@ -22,13 +24,15 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="27dp"
             android:layout_marginBottom="17dp"
-            android:padding="7dp"
+            android:background="@drawable/border"
             android:layoutDirection="rtl"
-            android:background="@drawable/border"/>
+            android:padding="7dp" />
 
     </RelativeLayout>
 
+    <!--navigation widget-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clFragmentManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/appBackground"
@@ -36,6 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!--youtube music-->
         <androidx.cardview.widget.CardView
             android:id="@+id/cvMusic"
             android:layout_width="wrap_content"
@@ -75,6 +80,7 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!--saved music-->
         <androidx.cardview.widget.CardView
             android:id="@+id/cvFiles"
             android:layout_width="wrap_content"
@@ -85,8 +91,7 @@
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <RelativeLayout
                 android:id="@+id/rlFiles"
@@ -117,4 +122,146 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--view for showing fragments-->
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/clFragmentManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlSearchBar">
+
+    </FrameLayout>
+
+    <!--widget with info about listening song -->
+    <!--and play/stop, back, next buttons-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/appBackground"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/clFragmentManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!--buttons-->
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="#1A1B1E"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardView">
+
+            <ImageButton
+                android:id="@+id/ibtnPreviousSong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:background="#1A1B1E"
+                android:padding="5dp"
+                android:scaleX="-1"
+                android:scaleY="1"
+                app:srcCompat="@drawable/button_next" />
+
+            <ImageButton
+                android:id="@+id/ibtnPlayStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="17dp"
+                android:background="#1A1B1E"
+                android:padding="5dp"
+                app:srcCompat="@drawable/button_play" />
+
+            <ImageButton
+                android:id="@+id/ibtnNextSong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:background="#1A1B1E"
+                android:padding="5dp"
+                app:srcCompat="@drawable/button_next" />
+        </LinearLayout>
+
+        <!--progress bar-->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--listening song info-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            app:cardBackgroundColor="#1A1B1E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar">
+
+            <RelativeLayout
+                android:id="@+id/rlSongDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivSoundtrackCover"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:background="#1A1A1A"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/ic_music_sheet" />
+
+                <TextView
+                    android:id="@+id/tvSoundtrackName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/ivSoundtrackCover"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginRight="9dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@id/ivSoundtrackCover"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="Song name"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSoundtrackAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSoundtrackName"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginEnd="9dp"
+                    android:layout_toRightOf="@id/ivSoundtrackCover"
+                    android:maxLines="1"
+                    android:singleLine="false"
+                    android:text="Author no name people"
+                    android:textAllCaps="true"
+                    android:textColor="@color/icon_ActiveFragment"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
