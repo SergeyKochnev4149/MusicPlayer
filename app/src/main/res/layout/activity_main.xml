@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clMain"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,10 +9,11 @@
     tools:context=".MainActivity">
 
     <!--search bar-->
+
     <RelativeLayout
         android:id="@+id/rlSearchBar"
         android:layout_width="match_parent"
-        android:layout_height="83dp"
+        android:layout_height="wrap_content"
         android:background="@color/searchBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,14 +21,16 @@
 
 
         <SearchView
-            android:layout_width="309dp"
-            android:layout_height="39dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="27dp"
-            android:layout_marginBottom="17dp"
+            android:layout_marginStart="35.5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35.5dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/border"
-            android:layoutDirection="rtl"
-            android:padding="7dp" />
+            android:gravity="center_vertical"
+            android:layoutDirection="rtl" />
 
     </RelativeLayout>
 
@@ -73,9 +77,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ivYoutubeMusic"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
                     android:text="Музика"
                     android:textColor="@color/white"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
@@ -113,9 +118,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ivSavedMusic"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto"
                     android:text="Файли"
                     android:textColor="@color/white"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
@@ -137,15 +144,18 @@
     <!--widget with info about listening song -->
     <!--and play/stop, back, next buttons-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clWidget_controlAndDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/appBackground"
+        android:paddingTop="5dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/clFragmentManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <!--buttons-->
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
@@ -155,13 +165,13 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cardView">
+            app:layout_constraintTop_toTopOf="@+id/cvSongDescription">
 
             <ImageButton
                 android:id="@+id/ibtnPreviousSong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="5dp"
                 android:background="#1A1B1E"
                 android:padding="5dp"
                 android:scaleX="-1"
@@ -172,7 +182,7 @@
                 android:id="@+id/ibtnPlayStop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="17dp"
+                android:layout_marginHorizontal="18dp"
                 android:background="#1A1B1E"
                 android:padding="5dp"
                 app:srcCompat="@drawable/button_play" />
@@ -181,32 +191,22 @@
                 android:id="@+id/ibtnNextSong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="20dp"
                 android:background="#1A1B1E"
                 android:padding="5dp"
                 app:srcCompat="@drawable/button_next" />
         </LinearLayout>
 
-        <!--progress bar-->
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!--listening song info-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/cvSongDescription"
             android:layout_width="0dp"
             android:layout_height="70dp"
             app:cardBackgroundColor="#1A1B1E"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar">
+            app:layout_constraintStart_toStartOf="parent">
 
             <RelativeLayout
                 android:id="@+id/rlSongDescription"
@@ -215,27 +215,28 @@
 
                 <ImageView
                     android:id="@+id/ivSoundtrackCover"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_alignParentLeft="false"
                     android:layout_alignParentTop="false"
                     android:background="#1A1A1A"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/ic_music_sheet" />
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/monolisa" />
 
                 <TextView
                     android:id="@+id/tvSoundtrackName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/ivSoundtrackCover"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginRight="9dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginBottom="6dp"
                     android:layout_toRightOf="@id/ivSoundtrackCover"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:fontFamily="@font/roboto_bold"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
@@ -249,19 +250,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvSoundtrackName"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginEnd="9dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
                     android:layout_toRightOf="@id/ivSoundtrackCover"
                     android:maxLines="1"
                     android:singleLine="false"
-                    android:text="Author no name people"
+                    android:text="Author"
                     android:textAllCaps="true"
                     android:textColor="@color/icon_ActiveFragment"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:maxHeight="4.5dp"
+        android:minHeight="4.5dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:progressDrawable="@drawable/seekbr_progress"
+        android:thumb="@drawable/seekbr_thumb"
+        app:layout_constraintBottom_toTopOf="@+id/clFragmentManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

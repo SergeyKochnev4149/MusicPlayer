@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isActive_SavedMusic;
     ImageView ivYoutubeMusic, ivSavedMusic;
     TextView tvMusic, tvFiles, tvSoundtrackName;
-    CardView cvMusic, cvFiles;
+    CardView cvMusic, cvFiles, cvSongDescription;
     int colour_activeFragment, colour_inactiveFragment, flFragmentID = R.id.flFragment;
     FragmentTransaction fragmentTransaction;
     YoutubeMusic youtubeMusicFragment;
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         tvMusic = findViewById(R.id.tvMusic);
         ivSavedMusic = findViewById(R.id.ivSavedMusic);
         tvFiles = findViewById(R.id.tvFiles);
+        cvSongDescription = findViewById(R.id.cvSongDescription);
         findViewById(R.id.tvSoundtrackName).setSelected(true);
     }
 
@@ -52,13 +53,13 @@ public class MainActivity extends AppCompatActivity {
         setOnClickMethods();
 
         if (isActive_SavedMusic)
-            goToSavedMusic();
+            openSavedMusic();
         else
-            goToYoutubeMusic();
+            openYoutubeMusic();
 
     }
 
-    public void goToYoutubeMusic() {
+    public void openYoutubeMusic() {
         isActive_SavedMusic = false;
 
         ivYoutubeMusic.setColorFilter(colour_activeFragment);
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setFragment();
     }
 
-    public void goToSavedMusic() {
+    public void openSavedMusic() {
         isActive_SavedMusic = true;
 
         ivYoutubeMusic.setColorFilter(colour_inactiveFragment);
@@ -80,8 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setOnClickMethods() {
-        cvMusic.setOnClickListener(v -> goToYoutubeMusic());
-        cvFiles.setOnClickListener(v -> goToSavedMusic());
+        cvMusic.setOnClickListener(v -> openYoutubeMusic());
+        cvFiles.setOnClickListener(v -> openSavedMusic());
+        cvSongDescription.setOnClickListener(v -> openSongDescriptionScreen());
     }
 
     private void setFragment() {
@@ -96,4 +98,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+    private void openSongDescriptionScreen(){
+        fragmentTransaction = getSupportFragmentManager()
+                .beginTransaction();
+        PlayingSong playingSong = new PlayingSong();
+        fragmentTransaction.replace(R.id.clMain, playingSong);
+        fragmentTransaction.addToBackStack("main");
+        fragmentTransaction.commit();
+
+    }
+
 }
