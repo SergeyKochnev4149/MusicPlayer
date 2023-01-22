@@ -22,13 +22,13 @@
         android:paddingEnd="0dp"
         android:progressDrawable="@drawable/seekbr_progress"
         android:thumb="@drawable/seekbr_thumb"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/llMiniPlayer_ControlPhanel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/llMiniPlayer_ControlPhanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/ibtnPreviousSong"
+            android:id="@+id/imgbtnPreviousSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"

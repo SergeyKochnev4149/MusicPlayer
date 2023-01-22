@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +32,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+<!--        <service android:name="com.example.musicplayer.MusicService" />-->
     </application>
 
 </manifest>
