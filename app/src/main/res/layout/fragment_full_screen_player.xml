@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PlayingSong"
+    tools:context=".ui.fragments.Fragment_FullScreenPlayer"
     android:background="@color/appBackground">
 
     <SeekBar
@@ -22,13 +22,13 @@
         android:paddingEnd="0dp"
         android:progressDrawable="@drawable/seekbr_progress"
         android:thumb="@drawable/seekbr_thumb"
-        app:layout_constraintBottom_toTopOf="@+id/llMiniPlayer_ControlPhanel"
+        app:layout_constraintBottom_toTopOf="@+id/llMiniPlayer_ControlPanel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/llMiniPlayer_ControlPhanel"
+        android:id="@+id/llMiniPlayer_ControlPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"

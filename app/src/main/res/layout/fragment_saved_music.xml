@@ -4,7 +4,7 @@
     android:id="@+id/rvSavedMusic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SavedMusic">
+    tools:context=".ui.fragments.Fragment_SavedMusic">
 
 
 </androidx.recyclerview.widget.RecyclerView>

@@ -1,4 +1,4 @@
-package com.example.musicplayer.fragments;
+package com.example.musicplayer.ui.fragments;
 
 import android.os.Bundle;
 
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.musicplayer.R;
 
 
-public class YoutubeMusic extends Fragment {
+public class Fragment_YoutubeMusic extends Fragment {
 
 
     @Override
