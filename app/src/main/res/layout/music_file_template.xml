@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/appBackground">
+    android:background="@color/appBackground"
+    android:id="@+id/clMusicFileTemplate"
+    >
+
 
     <ImageView
         android:id="@+id/ivSoundtrackCover"
@@ -25,19 +28,20 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="11dp"
-        android:fontFamily="@font/roboto"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="left"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
         android:text="Song name"
         android:textColor="#9B9B9B"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivSoundtrackCover"
-        app:layout_constraintTop_toTopOf="parent"
-        android:ellipsize="marquee"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:singleLine="true"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvSongAuthor"

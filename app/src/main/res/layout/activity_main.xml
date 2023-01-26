@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/clMain"
+    android:id="@+id/flMain"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appBackground"
     tools:context=".ui.AppUI">
+
+
 
     <!--search bar-->
 
@@ -129,16 +131,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <!--view for showing fragments-->
     <FrameLayout
         android:id="@+id/flFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/clFragmentManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/clFragmentManager"
-        app:layout_constraintTop_toBottomOf="@id/rlSearchBar">
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@id/rlSearchBar" />
 
     <!--widget with info about listening song -->
     <!--and play/stop, back, next buttons-->
@@ -147,15 +149,26 @@
         android:id="@+id/clMiniPlayer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/appBackground"
         android:paddingTop="5dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/clFragmentManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
 
         <!--buttons-->
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/clMiniPlayer_ControlPanel"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/cvMiniPlayer_SongInfo">-->
+
+
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
 
         <LinearLayout
             android:id="@+id/llMiniPlayer_ControlPanel"
@@ -171,10 +184,10 @@
             <ImageButton
                 android:id="@+id/imgbtnPreviousSong"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="#1A1B1E"
-                android:padding="5dp"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:paddingStart="14dp"
+                android:paddingEnd="5dp"
                 android:scaleX="-1"
                 android:scaleY="1"
                 app:srcCompat="@drawable/button_next" />
@@ -182,20 +195,22 @@
             <ImageButton
                 android:id="@+id/ibtnPlayStop"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="18dp"
-                android:background="#1A1B1E"
-                android:padding="5dp"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 app:srcCompat="@drawable/button_play" />
 
             <ImageButton
                 android:id="@+id/ibtnNextSong"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:background="#1A1B1E"
-                android:padding="5dp"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:paddingStart="14dp"
+                android:paddingEnd="25dp"
                 app:srcCompat="@drawable/button_next" />
+
+
         </LinearLayout>
 
 
@@ -235,7 +250,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginRight="11dp"
                     android:layout_marginBottom="6dp"
-                    android:layout_toRightOf="@id/ivMiniPlayer_SoundtrackCover"
+                    android:layout_toEndOf="@id/ivMiniPlayer_SoundtrackCover"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -267,6 +282,17 @@
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="5.5dp"
+            android:background="@color/appBackground"
+            android:foregroundGravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBar_MiniPlayer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/seekBar_MiniPlayer" />
 
         <SeekBar
             android:id="@+id/seekBar_MiniPlayer"

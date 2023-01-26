@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 
 import com.example.musicplayer.logic.music_control.MusicFile;
-import com.example.musicplayer.ui.fragments.Fragment_SavedMusic;
 
 import java.util.List;
 
@@ -23,13 +22,20 @@ public interface MVP_Contract {
         void openFullScreenPlayer();
         void showFragment(Fragment fragment);
         void changeColor_FragmentButtons(boolean isActive_savedMusic);
+        void showMiniPlayer();
     }
 
     interface MVP_Presenter{
-        boolean checkPermission();
 
         void clickOnSavedMusic();
 
         void clickOnYoutubeMusic();
+
+        void clickOnSong(MusicFile musicFile);
+
+        void clickOnHideFullScreenPlayer();
+
+        void clickOnMusicDescription();
+
     }
 }

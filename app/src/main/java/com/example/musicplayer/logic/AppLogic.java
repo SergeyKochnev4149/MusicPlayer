@@ -1,17 +1,13 @@
 package com.example.musicplayer.logic;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.widget.Toast;
-
-import androidx.core.content.ContextCompat;
 
 import com.example.musicplayer.MVP_Contract;
 import com.example.musicplayer.data.AppData;
 import com.example.musicplayer.logic.music_control.MusicFile;
-import com.example.musicplayer.logic.music_control.MusicFileAdapter;
-import com.example.musicplayer.ui.fragments.Fragment_SavedMusic;
+import com.example.musicplayer.logic.music_control.MusicPlayController;
+import com.example.musicplayer.ui.Fragment_SavedMusic;
+import com.example.musicplayer.ui.MusicFileAdapter;
 
 import java.util.List;
 
@@ -19,11 +15,9 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     private MVP_Contract.MVP_View mvpView;
     private MVP_Contract.MVP_Model mvpModel;
     private Context appContext;
-    private int countOfGetPermission;
+    private MusicPlayController musicPlayController;
     Fragment_SavedMusic savedMusicFragment;
-    private static final String[] neededPermissions = {
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
+
     public static boolean isActive_SavedMusic;
 
 
@@ -31,42 +25,16 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
         this.mvpView = mvpView;
         this.appContext = appContext;
         mvpModel = new AppData();
+        musicPlayController = new MusicPlayController(appContext);
     }
 
-    public void startApp() {
-
-    }
-
-
-    //  Return true if app have a needed permissions and false if haven`t
-    @Override
-    public boolean checkPermission() {
-        if (ContextCompat.checkSelfPermission(appContext, neededPermissions[0]) == PackageManager.PERMISSION_GRANTED)
-            return true;
-        else if (countOfGetPermission < 2) {
-            mvpView.getPermission(neededPermissions);
-            countOfGetPermission++;
-            return checkPermission();
-        } else {
-            String toast_HaveNotPermission =
-                    "The application does not have permission to read audio from the device. " +
-                            "\nPlease change the permission status in the device settings";
-
-            Toast.makeText(appContext, toast_HaveNotPermission, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    }
 
     @Override
     public void clickOnSavedMusic() {
 
-        if (!checkPermission()) {
-            return;
-        }
-
         if (savedMusicFragment == null) {
             List<MusicFile> savedMusicFiles = mvpModel.getAllSavedMusicFiles(appContext);
-            MusicFileAdapter musicFileAdapter = new MusicFileAdapter(appContext, savedMusicFiles);
+            MusicFileAdapter musicFileAdapter = new MusicFileAdapter(appContext, savedMusicFiles, this);
             savedMusicFragment = new Fragment_SavedMusic(musicFileAdapter);
         }
 
@@ -79,6 +47,24 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     public void clickOnYoutubeMusic() {
 
     }
+
+    @Override
+    public void clickOnMusicDescription(){
+        mvpView.openFullScreenPlayer();
+    }
+
+    @Override
+    public void clickOnSong(MusicFile musicFile) {
+        musicPlayController.playSong(musicFile);
+        mvpView.openFullScreenPlayer();
+    }
+
+
+    @Override
+    public void clickOnHideFullScreenPlayer() {
+        mvpView.showMiniPlayer();
+    }
+
 
 
 }

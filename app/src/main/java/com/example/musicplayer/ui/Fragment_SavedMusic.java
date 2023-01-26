@@ -1,4 +1,4 @@
-package com.example.musicplayer.ui.fragments;
+package com.example.musicplayer.ui;
 
 import android.os.Bundle;
 
@@ -12,18 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.musicplayer.R;
-import com.example.musicplayer.logic.music_control.MusicFileAdapter;
-
 
 
 public class Fragment_SavedMusic extends Fragment {
     RecyclerView rvSavedMusic;
-    private MusicFileAdapter musicFileAdapter;
+    public MusicFileAdapter musicFileAdapter;
 
     public Fragment_SavedMusic(MusicFileAdapter musicFileAdapter) {
         this.musicFileAdapter = musicFileAdapter;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

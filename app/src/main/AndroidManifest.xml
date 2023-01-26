@@ -33,6 +33,11 @@
                 android:value="" />
         </activity>
 
+        <activity
+            android:name=".ui.Activity_FullScreenPlayer"
+            android:screenOrientation="portrait"
+            />
+
 <!--        <service android:name="com.example.musicplayer.MusicService" />-->
     </application>
 
