@@ -1,6 +1,7 @@
 package com.example.musicplayer;
 
 import android.content.Context;
+import android.net.Uri;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,32 +17,60 @@ public interface MVP_Contract {
     }
 
     interface MVP_View{
-        void searchMusic_Youtube();
-        void searchMusic_SavedFiles();
-        void getPermission(String[] neededPermissions);
-        void openFullScreenPlayer();
-        void showFragment(Fragment fragment);
-        void changeColor_FragmentButtons(boolean isActive_savedMusic);
-        void showMiniPlayer();
+        interface AppUI {
+            void showPlayButton();
+
+            void showPauseButton();
+
+
+            void searchMusic_Youtube();
+
+            void searchMusic_SavedFiles();
+
+            void getPermission(String[] neededPermissions);
+
+            void showFullScreenPlayer();
+
+            void showFragment(Fragment fragment);
+
+            void changeColor_FragmentButtons(boolean isActive_savedMusic);
+
+            void showMiniPlayer();
+
+            void showSongDescription(String songName, String songAuthor, Uri albumArtUri);
+        }
+
+        interface FullScreenPlayer{
+            void showPlayButton();
+
+            void showPauseButton();
+
+            void showSongDescription(String songName, String songAuthor, Uri albumArtUri);
+        }
     }
 
     interface MVP_Presenter{
 
-        void clickOnSavedMusic();
+        void clickOnSavedMusicButton();
 
-        void clickOnYoutubeMusic();
+        void clickOnYoutubeMusicButton();
 
         void clickOnSong(MusicFile musicFile);
 
-        void clickOnNextSong();
+        void clickOnPlaySongButton();
 
-        void clickOnPreviousSong();
+        void clickOnNextSongButton();
 
-        void clickOnPlayOrStopSong();
+        void clickOnPreviousSongButton();
 
-        void clickOnHideFullScreenPlayer();
+        void clickOnPauseSongButton();
+
+        void clickOnHideFullScreenPlayerButton();
 
         void clickOnMusicDescription();
 
+        void setFullScreenPlayer(MVP_Contract.MVP_View.FullScreenPlayer fullScreenPlayer);
+
+        void onShowFullScreenPlayer();
     }
 }

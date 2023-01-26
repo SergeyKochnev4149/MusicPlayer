@@ -12,16 +12,17 @@ import com.example.musicplayer.ui.MusicFileAdapter;
 import java.util.List;
 
 public class AppLogic implements MVP_Contract.MVP_Presenter {
-    private final MVP_Contract.MVP_View mvpView;
+    public static boolean isActive_SavedMusic;
+    private final MVP_Contract.MVP_View.AppUI mvpView;
     private final MVP_Contract.MVP_Model mvpModel;
     private final Context appContext;
     private final MusicPlayController musicPlayController;
+    private MVP_Contract.MVP_View.FullScreenPlayer fullScreenPlayer;
     private Fragment_SavedMusic savedMusicFragment;
+    private MusicFile playingSong;
 
-    public static boolean isActive_SavedMusic;
 
-
-    public AppLogic(MVP_Contract.MVP_View mvpView, Context appContext) {
+    public AppLogic(MVP_Contract.MVP_View.AppUI mvpView, Context appContext) {
         this.mvpView = mvpView;
         this.appContext = appContext;
         mvpModel = new AppData();
@@ -31,7 +32,7 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
 
 
     @Override
-    public void clickOnSavedMusic() {
+    public void clickOnSavedMusicButton() {
 
         if (savedMusicFragment == null) {
             List<MusicFile> savedMusicFiles = mvpModel.getAllSavedMusicFiles(appContext);
@@ -45,41 +46,67 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     }
 
     @Override
-    public void clickOnYoutubeMusic() {
+    public void clickOnYoutubeMusicButton() {
 
     }
 
     @Override
-    public void clickOnMusicDescription(){
-        mvpView.openFullScreenPlayer();
+    public void clickOnMusicDescription() {
+        mvpView.showFullScreenPlayer();
+
     }
 
     @Override
     public void clickOnSong(MusicFile musicFile) {
         musicPlayController.playSong(musicFile);
-        mvpView.openFullScreenPlayer();
-    }
-
-    @Override
-    public void clickOnNextSong() {
-
-    }
-
-    @Override
-    public void clickOnPreviousSong() {
-
-    }
-
-    @Override
-    public void clickOnPlayOrStopSong() {
-
+        playingSong = musicFile;
+        mvpView.showFullScreenPlayer();
     }
 
 
+
+
     @Override
-    public void clickOnHideFullScreenPlayer() {
+    public void clickOnPauseSongButton() {
+        musicPlayController.pauseSong();
+        mvpView.showPlayButton();
+        fullScreenPlayer.showPlayButton();
+    }
+
+    @Override
+    public void clickOnPlaySongButton() {
+        musicPlayController.playSong();
+        mvpView.showPauseButton();
+        fullScreenPlayer.showPauseButton();
+    }
+
+    @Override
+    public void clickOnNextSongButton() {
+
+    }
+
+    @Override
+    public void clickOnPreviousSongButton() {
+
+    }
+
+    @Override
+    public void clickOnHideFullScreenPlayerButton() {
+        mvpView.showSongDescription(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
         mvpView.showMiniPlayer();
     }
+
+    @Override
+    public void onShowFullScreenPlayer() {
+        if (!musicPlayController.isPlay())
+            fullScreenPlayer.showPlayButton();
+        fullScreenPlayer.showSongDescription(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
+    }
+
+    public void setFullScreenPlayer(MVP_Contract.MVP_View.FullScreenPlayer fullScreenPlayer) {
+        this.fullScreenPlayer = fullScreenPlayer;
+    }
+
 
 
 

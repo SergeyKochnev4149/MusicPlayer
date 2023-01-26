@@ -56,11 +56,16 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
         Uri albumArtUri = musicFiles.get(position).getAlbumArtUri();
 
         //Checking whatever song have album art
-        try (InputStream inputStream = resolver.openInputStream(albumArtUri)) {
-            if (inputStream.available() == 0)
+        if (albumArtUri != null) {
+            try (InputStream inputStream = resolver.openInputStream(albumArtUri)) {
+                if (inputStream.available() == 0) {
+                    albumArtUri = null;
+                    musicFiles.get(position).setAlbumArtUri(null);
+                }
+            } catch (IOException e) {
                 albumArtUri = null;
-        } catch (IOException e) {
-            albumArtUri = null;
+                musicFiles.get(position).setAlbumArtUri(null);
+            }
         }
 
         if (albumArtUri != null)

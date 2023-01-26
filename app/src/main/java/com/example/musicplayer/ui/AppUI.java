@@ -4,9 +4,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.musicplayer.MVP_Contract;
 import com.example.musicplayer.R;
 import com.example.musicplayer.logic.AppLogic;
@@ -26,15 +29,16 @@ import com.example.musicplayer.logic.AppLogic;
 
 @SuppressLint("ResourceAsColor")
 
-public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
+public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.AppUI {
     MVP_Contract.MVP_Presenter mvpPresenter;
     private static final int REQUEST_CODE = 1;
-    ImageView ivYoutubeMusic, ivSavedMusic;
-    TextView tvMusic, tvFiles;
-    CardView cvMusic, cvFiles, cvSongDescription;
-    ConstraintLayout clMiniPlayer;
-    int colour_activeFragmentButton, colour_inactiveFragmentButton, flFragmentID = R.id.flFragment;
-    FragmentTransaction fragmentTransaction;
+    private ImageButton imgbtnPreviousSong, ibtnPlay, ibtnPause, ibtnNextSong;
+    private ImageView ivYoutubeMusic, ivSavedMusic, ivMiniPlayer_SoundtrackCover;
+    private TextView tvMusic, tvFiles, tvMiniPlayer_SoundtrackName, tvMiniPlayer_SoundtrackAuthor;
+    private CardView cvMusic, cvFiles, cvSongDescription;
+    private ConstraintLayout clMiniPlayer;
+    private int colour_activeFragmentButton, colour_inactiveFragmentButton, flFragmentID = R.id.flFragment;
+    private FragmentTransaction fragmentTransaction;
     private static String currentMethod; //used if more then 1 methods requires permissions
 
 
@@ -45,10 +49,9 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
 
         setContentView(R.layout.activity_main);
         initFragmentsControlPanel();
+        initMiniPlayer();
 
-        clMiniPlayer = findViewById(R.id.clMiniPlayer);
-        cvSongDescription = findViewById(R.id.cvMiniPlayer_SongInfo);
-        findViewById(R.id.tvMiniPlayer_SoundtrackName).setSelected(true);
+        findViewById(R.id.tvMiniPlayer_SoundtrackName).setSelected(true); //need for autoscroll text
     }
 
     private void initFragmentsControlPanel() {
@@ -62,6 +65,22 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
         tvFiles = findViewById(R.id.tvFiles);
     }
 
+    private void initMiniPlayer() {
+        clMiniPlayer = findViewById(R.id.clMiniPlayer);
+        cvSongDescription = findViewById(R.id.cvMiniPlayer_SongInfo);
+
+        //playing control buttons
+        imgbtnPreviousSong = findViewById(R.id.imgbtnPreviousSong);
+        ibtnPlay = findViewById(R.id.ibtnPlay);
+        ibtnPause = findViewById(R.id.ibtnPause);
+        ibtnNextSong = findViewById(R.id.ibtnNextSong);
+
+        //song description
+        tvMiniPlayer_SoundtrackName = findViewById(R.id.tvMiniPlayer_SoundtrackName);
+        ivMiniPlayer_SoundtrackCover = findViewById(R.id.ivMiniPlayer_SoundtrackCover);
+        tvMiniPlayer_SoundtrackAuthor = findViewById(R.id.tvMiniPlayer_SoundtrackAuthor);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -73,6 +92,11 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
         cvMusic.setOnClickListener(v -> clickOnYoutubeMusic());
         cvFiles.setOnClickListener(v -> clickOnSavedMusic());
         cvSongDescription.setOnClickListener(v -> clickOnMusicDescription());
+
+        imgbtnPreviousSong.setOnClickListener(v -> clickOnPreviousSong());
+        ibtnPlay.setOnClickListener(v -> clickOnPlaySong());
+        ibtnPause.setOnClickListener(v -> clickOnPauseSong());
+        ibtnNextSong.setOnClickListener(v -> clickOnNextSong());
     }
 
 
@@ -86,29 +110,38 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
             return;
         }
 
-        mvpPresenter.clickOnSavedMusic();
+        mvpPresenter.clickOnSavedMusicButton();
     }
 
     private void clickOnYoutubeMusic() {
-        mvpPresenter.clickOnYoutubeMusic();
+        mvpPresenter.clickOnYoutubeMusicButton();
     }
 
     private void clickOnMusicDescription() {
         mvpPresenter.clickOnMusicDescription();
     }
 
-    private void clickOnNextSong(){}
+    private void clickOnPreviousSong() {
+        mvpPresenter.clickOnPreviousSongButton();
+    }
 
-    private void clickOnPreviousSong(){}
+    private void clickOnPlaySong() {
+        mvpPresenter.clickOnPlaySongButton();
+    }
 
-    private void clickOnPlayOrStopSong(){}
+    private void clickOnPauseSong() {
+        mvpPresenter.clickOnPauseSongButton();
+    }
 
+    private void clickOnNextSong() {
+        mvpPresenter.clickOnNextSongButton();
+    }
 
 // User action processing unit end.
 
 
 // Showing unit start
-
+    @Override
     public void changeColor_FragmentButtons(boolean isActive_SavedMusic) {
         if (isActive_SavedMusic) {
             ivYoutubeMusic.setColorFilter(colour_inactiveFragmentButton);
@@ -131,8 +164,8 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
         fragmentTransaction.commit();
     }
 
-
-    public void openFullScreenPlayer() {
+    @Override
+    public void showFullScreenPlayer() {
         Intent intentFullScreenPlayer = new Intent(this, Activity_FullScreenPlayer.class);
         Activity_FullScreenPlayer.presenter = mvpPresenter;
         startActivity(intentFullScreenPlayer);
@@ -144,13 +177,35 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
     }
 
     @Override
-    public void searchMusic_Youtube() {
+    public void showPlayButton() {
+        ibtnPause.setVisibility(View.GONE);
+        ibtnPlay.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showPauseButton() {
+        ibtnPlay.setVisibility(View.GONE);
+        ibtnPause.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showSongDescription(String songName, String songAuthor, Uri albumArtUri){
+        tvMiniPlayer_SoundtrackName.setText(songName);
+        tvMiniPlayer_SoundtrackAuthor.setText(songAuthor);
+
+        if (albumArtUri != null)
+            Glide.with(this).asDrawable().load(albumArtUri).into(ivMiniPlayer_SoundtrackCover);
+        else
+            Glide.with(this).load(R.drawable.ic_music_sheet).into(ivMiniPlayer_SoundtrackCover);
 
     }
 
     @Override
-    public void searchMusic_SavedFiles() {
+    public void searchMusic_Youtube() {
+    }
 
+    @Override
+    public void searchMusic_SavedFiles() {
     }
 
 //  Showing unit end.

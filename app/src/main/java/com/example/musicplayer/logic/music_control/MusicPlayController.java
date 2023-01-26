@@ -35,14 +35,23 @@ public class MusicPlayController {
         mediaPlayer.start();
     }
 
-    public void stopSong() {
-        mediaPlayer.stop();
+    public void pauseSong() {
+        mediaPlayer.pause();
     }
 
     public void playSong() {
         if (mediaPlayer != null)
             mediaPlayer.start();
     }
+
+    public boolean isPlay(){
+        if (mediaPlayer != null){
+            if (mediaPlayer.isPlaying())
+                return true;
+        }
+        return false;
+    }
+
 
     public void nextSong() {
     }

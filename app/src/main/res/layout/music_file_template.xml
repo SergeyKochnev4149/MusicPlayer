@@ -13,9 +13,11 @@
         android:layout_width="53dp"
         android:layout_height="53dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="11dp"
         android:background="#1A1A1A"
         android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_music_sheet" />
@@ -28,14 +30,9 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="11dp"
-        android:ellipsize="marquee"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:fontFamily="@font/roboto_bold"
         android:gravity="left"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:singleLine="true"
+        android:maxLines="2"
         android:text="Song name"
         android:textColor="#9B9B9B"
         android:textSize="17sp"
@@ -45,13 +42,15 @@
 
     <TextView
         android:id="@+id/tvSongAuthor"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="2dp"
+        android:singleLine="true"
         android:text="Author"
         android:textColor="#5C5C5E"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvSongName"
         app:layout_constraintStart_toEndOf="@id/ivSoundtrackCover"
         app:layout_constraintTop_toBottomOf="@id/tvSongName" />
 
@@ -61,10 +60,10 @@
         android:layout_width="0dp"
         android:layout_height="0.5dp"
         android:layout_marginStart="11dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:background="#323232"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivSoundtrackCover"
-        app:layout_constraintTop_toBottomOf="@id/ivSoundtrackCover" />
+        app:layout_constraintTop_toBottomOf="@id/tvSongAuthor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
