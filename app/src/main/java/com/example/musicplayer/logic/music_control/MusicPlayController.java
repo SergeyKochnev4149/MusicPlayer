@@ -4,14 +4,26 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
+//Singleton
 public class MusicPlayController {
-    //TODO this class Singleton
-    MediaPlayer mediaPlayer;
-    Context appContext;
+    private MediaPlayer mediaPlayer;
+    private Context appContext;
+    private static MusicPlayController instance;
 
-    public MusicPlayController(Context appContext) {
+    private MusicPlayController() {
+    }
+
+    public static MusicPlayController getInstance() {
+        if (instance == null)
+            instance = new MusicPlayController();
+
+        return instance;
+    }
+
+    public void setAppContext(Context appContext) {
         this.appContext = appContext;
     }
+
 
     public void playSong(MusicFile musicFile) {
         if (mediaPlayer != null) {
@@ -25,6 +37,11 @@ public class MusicPlayController {
 
     public void stopSong() {
         mediaPlayer.stop();
+    }
+
+    public void playSong() {
+        if (mediaPlayer != null)
+            mediaPlayer.start();
     }
 
     public void nextSong() {

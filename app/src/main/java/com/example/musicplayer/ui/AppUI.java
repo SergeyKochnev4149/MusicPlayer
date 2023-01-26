@@ -93,11 +93,18 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View {
         mvpPresenter.clickOnYoutubeMusic();
     }
 
-    public void clickOnMusicDescription() {
+    private void clickOnMusicDescription() {
         mvpPresenter.clickOnMusicDescription();
     }
 
-// User action processing unit start
+    private void clickOnNextSong(){}
+
+    private void clickOnPreviousSong(){}
+
+    private void clickOnPlayOrStopSong(){}
+
+
+// User action processing unit end.
 
 
 // Showing unit start

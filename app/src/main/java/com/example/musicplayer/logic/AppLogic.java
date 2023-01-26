@@ -12,11 +12,11 @@ import com.example.musicplayer.ui.MusicFileAdapter;
 import java.util.List;
 
 public class AppLogic implements MVP_Contract.MVP_Presenter {
-    private MVP_Contract.MVP_View mvpView;
-    private MVP_Contract.MVP_Model mvpModel;
-    private Context appContext;
-    private MusicPlayController musicPlayController;
-    Fragment_SavedMusic savedMusicFragment;
+    private final MVP_Contract.MVP_View mvpView;
+    private final MVP_Contract.MVP_Model mvpModel;
+    private final Context appContext;
+    private final MusicPlayController musicPlayController;
+    private Fragment_SavedMusic savedMusicFragment;
 
     public static boolean isActive_SavedMusic;
 
@@ -25,7 +25,8 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
         this.mvpView = mvpView;
         this.appContext = appContext;
         mvpModel = new AppData();
-        musicPlayController = new MusicPlayController(appContext);
+        musicPlayController = MusicPlayController.getInstance();
+        musicPlayController.setAppContext(appContext);
     }
 
 
@@ -57,6 +58,21 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     public void clickOnSong(MusicFile musicFile) {
         musicPlayController.playSong(musicFile);
         mvpView.openFullScreenPlayer();
+    }
+
+    @Override
+    public void clickOnNextSong() {
+
+    }
+
+    @Override
+    public void clickOnPreviousSong() {
+
+    }
+
+    @Override
+    public void clickOnPlayOrStopSong() {
+
     }
 
 

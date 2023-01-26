@@ -33,6 +33,12 @@ public interface MVP_Contract {
 
         void clickOnSong(MusicFile musicFile);
 
+        void clickOnNextSong();
+
+        void clickOnPreviousSong();
+
+        void clickOnPlayOrStopSong();
+
         void clickOnHideFullScreenPlayer();
 
         void clickOnMusicDescription();

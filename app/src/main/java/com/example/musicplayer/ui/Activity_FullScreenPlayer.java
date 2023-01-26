@@ -32,6 +32,11 @@ public class Activity_FullScreenPlayer extends AppCompatActivity {
     }
 
 
+    private void clickOnNextSong(){}
+
+    private void clickOnPreviousSong(){}
+
+    private void clickOnPlayOrStopSong(){}
 
 
     private void hideWindow(){
@@ -44,8 +49,6 @@ public class Activity_FullScreenPlayer extends AppCompatActivity {
         super.finish();
         presenter = null;
     }
-
-
 
     @Override
     public void onBackPressed() {
