@@ -86,7 +86,6 @@ public class Activity_FullScreenPlayer extends AppCompatActivity implements MVP_
 
     private void clickOnHideFullScreenPlayerButton() {
         presenter.clickOnHideFullScreenPlayerButton();
-        finish();
     }
 
 // User action processing unit end.
@@ -107,7 +106,7 @@ public class Activity_FullScreenPlayer extends AppCompatActivity implements MVP_
     }
 
     @Override
-    public void setSongDescription(String songName, String songAuthor, Uri albumArtUri) {
+    public void setSongInfo(String songName, String songAuthor, Uri albumArtUri) {
         tvSoundtrackName.setText(songName);
         tvSoundtrackAuthor.setText(songAuthor);
 
@@ -115,6 +114,11 @@ public class Activity_FullScreenPlayer extends AppCompatActivity implements MVP_
             Glide.with(this).asDrawable().load(albumArtUri).into(ivSoundtrackCover);
         else
             Glide.with(this).load(R.drawable.ic_music_sheet).into(ivSoundtrackCover);
+    }
+
+    @Override
+    public void close(){
+        finish();
     }
 
 //  Showing unit end.

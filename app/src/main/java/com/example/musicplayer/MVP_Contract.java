@@ -46,7 +46,9 @@ public interface MVP_Contract {
 
             void showPauseButton();
 
-            void setSongDescription(String songName, String songAuthor, Uri albumArtUri);
+            void setSongInfo(String songName, String songAuthor, Uri albumArtUri);
+
+            void close();
         }
     }
 
@@ -67,8 +69,6 @@ public interface MVP_Contract {
         void clickOnPauseSongButton();
 
         void clickOnHideFullScreenPlayerButton();
-
-        void clickOnMusicDescription();
 
         void setSongInfo_MiniPlayer(MusicFile playingSong);
 

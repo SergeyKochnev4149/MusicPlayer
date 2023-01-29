@@ -51,10 +51,6 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
 
     }
 
-    @Override
-    public void clickOnMusicDescription() {
-        mvpView.showFullScreenPlayer();
-    }
 
     @Override
     public void clickOnSong(MusicFile musicFile) {
@@ -98,6 +94,7 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     public void clickOnHideFullScreenPlayerButton() {
         setSongInfo_MiniPlayer(playingSong);
         mvpView.showMiniPlayer();
+        fullScreenPlayer.close();
     }
 
     @Override
@@ -115,7 +112,7 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     public void setSongInfo_FullScreenPlayer(MusicFile playingSong) {
         if (!musicPlayController.isPlay())
             fullScreenPlayer.showPlayButton();
-        fullScreenPlayer.setSongDescription(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
+        fullScreenPlayer.setSongInfo(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
     }
 
 

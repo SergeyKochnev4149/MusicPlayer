@@ -27,10 +27,10 @@ import java.util.List;
 public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.MusicViewHolder> {
 
 
-    private Context context;
-    private List<MusicFile> musicFiles;
-    private ContentResolver resolver;
-    private MVP_Contract.MVP_Presenter presenter;
+    private final Context context;
+    private final List<MusicFile> musicFiles;
+    private final ContentResolver resolver;
+    private final MVP_Contract.MVP_Presenter presenter;
 
 
     public MusicFileAdapter(Context context, List<MusicFile> musicFiles, MVP_Contract.MVP_Presenter presenter) {
@@ -106,6 +106,8 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
     private void clickOnSong(MusicFile musicFile){
         presenter.clickOnSong(musicFile);
     }
+
+
 
 
 

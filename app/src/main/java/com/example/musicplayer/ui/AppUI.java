@@ -118,7 +118,7 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
     }
 
     private void clickOnMusicDescription() {
-        mvpPresenter.clickOnMusicDescription();
+        showFullScreenPlayer();
     }
 
     private void clickOnPreviousSong() {

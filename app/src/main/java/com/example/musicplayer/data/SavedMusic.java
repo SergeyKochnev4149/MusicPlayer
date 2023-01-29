@@ -24,7 +24,7 @@ public class SavedMusic {
             MediaStore.Audio.Media.ALBUM_ID,
 
     };
-    private static final String selection = "is_music == 1 & _size != 0";
+    private static final String selection = "is_music != 0";
 
     public static List<MusicFile> getAllSavedMusicFiles(Context context) {
         List<MusicFile> musicFiles = new ArrayList<>();
