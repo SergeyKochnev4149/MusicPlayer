@@ -60,9 +60,10 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     public void clickOnSong(MusicFile musicFile) {
         musicPlayController.playSong(musicFile);
 
-        if (playingSong != null)
+        if (playingSong != null) {
             setSongInfo_MiniPlayer(musicFile);
-        else
+            mvpView.showPauseButton();
+        }else
             mvpView.showFullScreenPlayer();
 
         playingSong = musicFile;
