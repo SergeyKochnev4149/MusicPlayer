@@ -19,8 +19,6 @@ import com.example.musicplayer.MVP_Contract;
 import com.example.musicplayer.R;
 import com.example.musicplayer.logic.music_control.MusicFile;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -29,13 +27,11 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
 
     private final Context context;
     private final List<MusicFile> musicFiles;
-    private final ContentResolver resolver;
     private final MVP_Contract.MVP_Presenter presenter;
 
 
     public MusicFileAdapter(Context context, List<MusicFile> musicFiles, MVP_Contract.MVP_Presenter presenter) {
         this.context = context;
-        resolver = context.getContentResolver();
         this.musicFiles = musicFiles;
         this.presenter = presenter;
     }
@@ -52,26 +48,16 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
     public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
         holder.tvSongAuthor.setText(musicFiles.get(position).getSongAuthor());
         holder.tvSongName.setText(musicFiles.get(position).getSongName());
-
         Uri albumArtUri = musicFiles.get(position).getAlbumArtUri();
 
-        //Checking whatever song have album art
-        if (albumArtUri != null) {
-            try (InputStream inputStream = resolver.openInputStream(albumArtUri)) {
-                if (inputStream.available() == 0) {
-                    albumArtUri = null;
-                    musicFiles.get(position).setAlbumArtUri(null);
-                }
-            } catch (IOException e) {
-                albumArtUri = null;
-                musicFiles.get(position).setAlbumArtUri(null);
-            }
-        }
+//      Set image
+        Glide.with(context).asDrawable()
+                .load(albumArtUri)
+                .error(R.drawable.ic_music_sheet) // set standard image when album art cant load
+                .placeholder(R.drawable.ic_music_sheet) // show standard image while album arl load
+                .into(holder.ivSoundtrackCover);
 
-        if (albumArtUri != null)
-            Glide.with(context).asDrawable().load(albumArtUri).into(holder.ivSoundtrackCover);
-        else
-            Glide.with(context).load(R.drawable.ic_music_sheet).into(holder.ivSoundtrackCover);
+
     }
 
     @Override
@@ -79,7 +65,7 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
         return musicFiles.size();
     }
 
-    public class MusicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MusicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvSongName, tvSongAuthor;
         ImageView ivSoundtrackCover;
         ConstraintLayout item;
@@ -96,18 +82,16 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION){
+            if (position != RecyclerView.NO_POSITION) {
                 clickOnSong(musicFiles.get(position));
             }
         }
     }
 
 
-    private void clickOnSong(MusicFile musicFile){
+    private void clickOnSong(MusicFile musicFile) {
         presenter.clickOnSong(musicFile);
     }
-
-
 
 
 

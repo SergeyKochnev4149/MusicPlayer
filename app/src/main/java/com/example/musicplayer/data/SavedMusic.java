@@ -8,8 +8,6 @@ import android.provider.MediaStore;
 
 import com.example.musicplayer.logic.music_control.MusicFile;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,11 +48,6 @@ public class SavedMusic {
 
         return musicFiles;
     }
-
-
-
-
-
 
 
 }

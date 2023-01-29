@@ -110,14 +110,15 @@ public class Activity_FullScreenPlayer extends AppCompatActivity implements MVP_
         tvSoundtrackName.setText(songName);
         tvSoundtrackAuthor.setText(songAuthor);
 
-        if (albumArtUri != null)
-            Glide.with(this).asDrawable().load(albumArtUri).into(ivSoundtrackCover);
-        else
-            Glide.with(this).load(R.drawable.ic_music_sheet).into(ivSoundtrackCover);
+        Glide.with(this).asDrawable()
+                .load(albumArtUri)
+                .error(R.drawable.ic_music_sheet)
+                .placeholder(R.drawable.ic_music_sheet)
+                .into(ivSoundtrackCover);
     }
 
     @Override
-    public void close(){
+    public void close() {
         finish();
     }
 

@@ -1,6 +1,7 @@
 package com.example.musicplayer.logic;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.example.musicplayer.MVP_Contract;
 import com.example.musicplayer.data.AppData;
@@ -82,7 +83,10 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
 
     @Override
     public void clickOnNextSongButton() {
-
+        if (this instanceof MVP_Contract.MVP_View.AppUI)
+            Toast.makeText(appContext, "hello from UI", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(appContext, "hello from full", Toast.LENGTH_SHORT).show();
     }
 
     @Override

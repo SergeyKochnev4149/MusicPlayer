@@ -38,7 +38,6 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
     private CardView cvMusic, cvFiles, cvSongDescription;
     private ConstraintLayout clMiniPlayer;
     private int colour_activeFragmentButton, colour_inactiveFragmentButton;
-    private boolean visible_FullScreenPlayer;
     private static String currentMethod; //used if more then 1 methods requires permissions
 
 
@@ -140,7 +139,7 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
 // User action processing unit end.
 
 
-// Showing unit start
+    // Showing unit start
     @Override
     public void changeColor_FragmentButtons(boolean isActive_SavedMusic) {
         if (isActive_SavedMusic) {
@@ -189,14 +188,15 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
     }
 
     @Override
-    public void setSongInfo(String songName, String songAuthor, Uri albumArtUri){
+    public void setSongInfo(String songName, String songAuthor, Uri albumArtUri) {
         tvMiniPlayer_SoundtrackName.setText(songName);
         tvMiniPlayer_SoundtrackAuthor.setText(songAuthor);
 
-        if (albumArtUri != null)
-            Glide.with(this).asDrawable().load(albumArtUri).into(ivMiniPlayer_SoundtrackCover);
-        else
-            Glide.with(this).load(R.drawable.ic_music_sheet).into(ivMiniPlayer_SoundtrackCover);
+        Glide.with(this).asDrawable()
+                .load(albumArtUri)
+                .error(R.drawable.ic_music_sheet)
+                .placeholder(R.drawable.ic_music_sheet)
+                .into(ivMiniPlayer_SoundtrackCover);
 
     }
 
