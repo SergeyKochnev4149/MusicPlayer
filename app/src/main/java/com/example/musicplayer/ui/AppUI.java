@@ -37,8 +37,8 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
     private TextView tvMusic, tvFiles, tvMiniPlayer_SoundtrackName, tvMiniPlayer_SoundtrackAuthor;
     private CardView cvMusic, cvFiles, cvSongDescription;
     private ConstraintLayout clMiniPlayer;
-    private int colour_activeFragmentButton, colour_inactiveFragmentButton, flFragmentID = R.id.flFragment;
-    private FragmentTransaction fragmentTransaction;
+    private int colour_activeFragmentButton, colour_inactiveFragmentButton;
+    private boolean visible_FullScreenPlayer;
     private static String currentMethod; //used if more then 1 methods requires permissions
 
 
@@ -159,8 +159,8 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
 
     @Override
     public void showFragment(Fragment fragment) {
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(flFragmentID, fragment);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.flFragment, fragment);
         fragmentTransaction.commit();
     }
 
@@ -189,7 +189,7 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
     }
 
     @Override
-    public void showSongDescription(String songName, String songAuthor, Uri albumArtUri){
+    public void setSongInfo(String songName, String songAuthor, Uri albumArtUri){
         tvMiniPlayer_SoundtrackName.setText(songName);
         tvMiniPlayer_SoundtrackAuthor.setText(songAuthor);
 
@@ -253,7 +253,7 @@ public class AppUI extends AppCompatActivity implements MVP_Contract.MVP_View.Ap
             }
         }
 
-        //If app will be need permission from other methods, delete this and uncomment case
+        //If app will be need permission from other methods, delete this and uncomment switch
         currentMethod = null;
         clickOnSavedMusic();
 

@@ -6,6 +6,7 @@ import android.net.Uri;
 import androidx.fragment.app.Fragment;
 
 import com.example.musicplayer.logic.music_control.MusicFile;
+import com.example.musicplayer.ui.Activity_FullScreenPlayer;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public interface MVP_Contract {
 
             void showMiniPlayer();
 
-            void showSongDescription(String songName, String songAuthor, Uri albumArtUri);
+            void setSongInfo(String songName, String songAuthor, Uri albumArtUri);
         }
 
         interface FullScreenPlayer{
@@ -45,7 +46,7 @@ public interface MVP_Contract {
 
             void showPauseButton();
 
-            void showSongDescription(String songName, String songAuthor, Uri albumArtUri);
+            void setSongDescription(String songName, String songAuthor, Uri albumArtUri);
         }
     }
 
@@ -69,8 +70,10 @@ public interface MVP_Contract {
 
         void clickOnMusicDescription();
 
-        void setFullScreenPlayer(MVP_Contract.MVP_View.FullScreenPlayer fullScreenPlayer);
+        void setSongInfo_MiniPlayer(MusicFile playingSong);
 
-        void onShowFullScreenPlayer();
+        void setSongInfo_FullScreenPlayer(MusicFile playingSong);
+
+        void isCreated_FullScreenPlayer(Activity_FullScreenPlayer activity_fullScreenPlayer);
     }
 }

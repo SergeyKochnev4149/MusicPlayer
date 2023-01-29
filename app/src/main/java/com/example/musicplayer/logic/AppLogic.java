@@ -6,6 +6,7 @@ import com.example.musicplayer.MVP_Contract;
 import com.example.musicplayer.data.AppData;
 import com.example.musicplayer.logic.music_control.MusicFile;
 import com.example.musicplayer.logic.music_control.MusicPlayController;
+import com.example.musicplayer.ui.Activity_FullScreenPlayer;
 import com.example.musicplayer.ui.Fragment_SavedMusic;
 import com.example.musicplayer.ui.MusicFileAdapter;
 
@@ -53,17 +54,19 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
     @Override
     public void clickOnMusicDescription() {
         mvpView.showFullScreenPlayer();
-
     }
 
     @Override
     public void clickOnSong(MusicFile musicFile) {
         musicPlayController.playSong(musicFile);
+
+        if (playingSong != null)
+            setSongInfo_MiniPlayer(musicFile);
+        else
+            mvpView.showFullScreenPlayer();
+
         playingSong = musicFile;
-        mvpView.showFullScreenPlayer();
     }
-
-
 
 
     @Override
@@ -92,22 +95,27 @@ public class AppLogic implements MVP_Contract.MVP_Presenter {
 
     @Override
     public void clickOnHideFullScreenPlayerButton() {
-        mvpView.showSongDescription(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
+        setSongInfo_MiniPlayer(playingSong);
         mvpView.showMiniPlayer();
     }
 
     @Override
-    public void onShowFullScreenPlayer() {
+    public void isCreated_FullScreenPlayer(Activity_FullScreenPlayer fullScreenPlayer) {
+        this.fullScreenPlayer = fullScreenPlayer;
+        setSongInfo_FullScreenPlayer(playingSong);
+    }
+
+    @Override
+    public void setSongInfo_MiniPlayer(MusicFile playingSong) {
+        mvpView.setSongInfo(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
+    }
+
+    @Override
+    public void setSongInfo_FullScreenPlayer(MusicFile playingSong) {
         if (!musicPlayController.isPlay())
             fullScreenPlayer.showPlayButton();
-        fullScreenPlayer.showSongDescription(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
+        fullScreenPlayer.setSongDescription(playingSong.getSongName(), playingSong.getSongAuthor(), playingSong.getAlbumArtUri());
     }
-
-    public void setFullScreenPlayer(MVP_Contract.MVP_View.FullScreenPlayer fullScreenPlayer) {
-        this.fullScreenPlayer = fullScreenPlayer;
-    }
-
-
 
 
 }

@@ -41,8 +41,7 @@ public class Activity_FullScreenPlayer extends AppCompatActivity implements MVP_
         tvSoundtrackName = findViewById(R.id.tvSoundtrackName);
         findViewById(R.id.tvSoundtrackName).setSelected(true);
 
-        presenter.setFullScreenPlayer(this);
-        presenter.onShowFullScreenPlayer();
+        presenter.isCreated_FullScreenPlayer(this);
     }
 
     @Override
@@ -108,7 +107,7 @@ public class Activity_FullScreenPlayer extends AppCompatActivity implements MVP_
     }
 
     @Override
-    public void showSongDescription(String songName, String songAuthor, Uri albumArtUri) {
+    public void setSongDescription(String songName, String songAuthor, Uri albumArtUri) {
         tvSoundtrackName.setText(songName);
         tvSoundtrackAuthor.setText(songAuthor);
 
