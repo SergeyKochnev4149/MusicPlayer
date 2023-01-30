@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.example.musicplayer.logic.music_control.MusicFile;
+import com.example.musicplayer.logic.MusicFile;
 
 import java.util.ArrayList;
 import java.util.List;

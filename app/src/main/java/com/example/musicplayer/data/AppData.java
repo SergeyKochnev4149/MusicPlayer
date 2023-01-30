@@ -3,7 +3,7 @@ package com.example.musicplayer.data;
 import android.content.Context;
 
 import com.example.musicplayer.MVP_Contract;
-import com.example.musicplayer.logic.music_control.MusicFile;
+import com.example.musicplayer.logic.MusicFile;
 
 import java.util.List;
 

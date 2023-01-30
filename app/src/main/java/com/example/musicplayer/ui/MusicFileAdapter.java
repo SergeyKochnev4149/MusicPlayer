@@ -1,7 +1,6 @@
 package com.example.musicplayer.ui;
 
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.musicplayer.MVP_Contract;
 import com.example.musicplayer.R;
-import com.example.musicplayer.logic.music_control.MusicFile;
+import com.example.musicplayer.logic.MusicFile;
 
 import java.util.List;
 
@@ -28,6 +27,7 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
     private final Context context;
     private final List<MusicFile> musicFiles;
     private final MVP_Contract.MVP_Presenter presenter;
+    public int positionOfPlayingSong;
 
 
     public MusicFileAdapter(Context context, List<MusicFile> musicFiles, MVP_Contract.MVP_Presenter presenter) {
@@ -84,6 +84,7 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 clickOnSong(musicFiles.get(position));
+                positionOfPlayingSong = position;
             }
         }
     }
@@ -92,6 +93,25 @@ public class MusicFileAdapter extends RecyclerView.Adapter<MusicFileAdapter.Musi
     private void clickOnSong(MusicFile musicFile) {
         presenter.clickOnSong(musicFile);
     }
+
+    public boolean checkPositionIsLast_ListeningSong(){
+        return positionOfPlayingSong == musicFiles.size() - 1;
+    }
+
+    public boolean checkPositionIsFirst_ListeningSong(){
+        return positionOfPlayingSong == 0;
+    }
+
+    public MusicFile getNextSong(){
+            return musicFiles.get(positionOfPlayingSong + 1);
+    }
+
+    public MusicFile getPreviousSong(){
+        return musicFiles.get(positionOfPlayingSong - 1);
+    }
+
+
+
 
 
 

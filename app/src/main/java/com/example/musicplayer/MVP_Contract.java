@@ -5,7 +5,7 @@ import android.net.Uri;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.musicplayer.logic.music_control.MusicFile;
+import com.example.musicplayer.logic.MusicFile;
 import com.example.musicplayer.ui.Activity_FullScreenPlayer;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.musicplayer.logic.music_control;
+package com.example.musicplayer.logic;
 
 import android.net.Uri;
 

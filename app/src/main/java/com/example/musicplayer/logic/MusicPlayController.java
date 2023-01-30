@@ -1,4 +1,4 @@
-package com.example.musicplayer.logic.music_control;
+package com.example.musicplayer.logic;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -46,18 +46,9 @@ public class MusicPlayController {
 
     public boolean isPlay(){
         if (mediaPlayer != null){
-            if (mediaPlayer.isPlaying())
-                return true;
+            return mediaPlayer.isPlaying();
         }
         return false;
     }
-
-
-    public void nextSong() {
-    }
-
-    public void previousSong() {
-    }
-
 
 }
